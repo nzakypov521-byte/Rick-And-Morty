@@ -1,15 +1,14 @@
-import "../App.css";
-import CharacterList from "./CharacterList";
-import Header from "./Header";
-import Pagination from "./Pagination";
-import SearchBar from "./SearchBar";
-import StatusFilter from "./StatusFilter";
+import CharacterList from "../components/CharacterList";
+import Header from "../components/Header";
+import Pagination from "../components/Pagination";
+import SearchBar from "../components/SearchBar";
+import StatusFilter from "../components/StatusFilter";
 import getList from "../api/api";
 import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 
-function App() {
+function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -51,7 +50,7 @@ function App() {
   }, [page]);
 
   return (
-    <div className="flex flex-col box-border">
+    <div className="flex flex-col box-border overflow-y-auto [&::-webkit-scrollbar]:hidden">
       <Header></Header>
       <div className="flex flex-col bg-[#0E1311] h-full min-h-screen text-white px-43 pt-8 gap-4">
         <div>Каталог персонажей</div>
@@ -75,4 +74,4 @@ function App() {
   );
 }
 
-export default App;
+export default CatalogPage;

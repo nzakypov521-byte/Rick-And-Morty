@@ -1,3 +1,5 @@
+import { NavLink } from "react-router"
+
 function Header() {
     return (
         <div className="w-flex h-15 bg-[#0E1311] flex flex-row justify-between text-[#FFFFFF] border-b-[#242D2A] border-b px-43">
@@ -11,11 +13,11 @@ function Header() {
                 <div className="text-[#8F9996]">Каталог</div>
             </div>
             <div className="flex flex-row items-center gap-3">
-                <button>Каталог</button>
-                <button className="flex flex-row items-center gap-2">
+                <NavLink to='/'>Каталог</NavLink>
+                <NavLink to='/favorites' className="flex flex-row items-center gap-2">
                     Избранное
                      <div>0</div>
-                </button>
+                </NavLink>
             </div>
         </div>
     )
