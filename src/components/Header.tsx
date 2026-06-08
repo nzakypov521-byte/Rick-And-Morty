@@ -1,6 +1,6 @@
 function Header() {
     return (
-        <div className="w-flex h-15 bg-[#0E1311] flex flex-row justify-between text-[#FFFFFF] border-b-[#242D2A] border-b px-80">
+        <div className="w-flex h-15 bg-[#0E1311] flex flex-row justify-between text-[#FFFFFF] border-b-[#242D2A] border-b px-43">
             <div className="flex flex-row gap-4 items-center">
                 <div className="h-3 w-3 rounded-sm bg-[#11B743]"></div>
                 <div className="flex flex-row gap-1">

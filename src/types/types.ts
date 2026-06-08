@@ -11,3 +11,13 @@ export type Character = {
 }
 
 export type ActiveTabType = 'all' | 'alive' | 'dead' | 'unknown'
+
+export type DataFromApi = {
+    info: {
+        count: number,
+        pages: number,
+        next: string | null,
+        prev: string | null,
+    },
+    results: Character[]
+}
