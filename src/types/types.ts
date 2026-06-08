@@ -9,3 +9,5 @@ export type Character = {
     location: { name: string },
     episode: string[]
 }
+
+export type ActiveTabType = 'all' | 'alive' | 'dead' | 'unknown'
