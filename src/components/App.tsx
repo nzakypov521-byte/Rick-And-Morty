@@ -11,24 +11,43 @@ import Loader from "./Loader";
 
 function App() {
   const [data, setData] = useState<DataFromApi | null>();
-  const [page, setPage] = useState<number>(2);
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function setPageFunction(pageMove: string) {
+    if (isLoading) return
     const maxPages = data?.info?.pages || 42;
 
     if (pageMove === "back" && page > 1) {
+      setIsLoading(true);
       setPage((prev) => prev - 1);
     }
 
     if (pageMove === "forward" && page < maxPages) {
+      setIsLoading(true);
       setPage((prev) => prev + 1);
     }
   }
 
   useEffect(() => {
-    getList(page).then((result) => {
+    const controller = new AbortController()
+    const { signal } = controller
+
+
+    getList(page, signal).then((result) => {
       if (result) setData(result);
-    });
+    }) .catch((err) => {
+      if (err.name !== 'AbortError') {
+        console.error(err);
+      }
+    }).finally(() => {
+      setIsLoading(false);
+    })
+
+    return () => {
+      controller.abort();
+    };
+
   }, [page]);
 
   return (

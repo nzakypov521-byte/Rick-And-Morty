@@ -7,6 +7,8 @@ function CharacterCard( {name, status, species, image}: {name:string, status: st
         className="rounded-t-2xl"
         src={`${image}`}
         alt=""
+        loading="lazy" 
+        crossOrigin="anonymous" 
       />
       <div className="flex flex-col px-5 pt-4">
         <div className="text-[#FFFFFF]">{name}</div>
