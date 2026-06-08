@@ -1,23 +1,35 @@
-
-import "../App.css"
+import "../App.css";
 import CharacterList from "./CharacterList";
-import Header from "./Header"
+import Header from "./Header";
 import Pagination from "./Pagination";
-import SearchBar from './SearchBar';
+import SearchBar from "./SearchBar";
 import StatusFilter from "./StatusFilter";
-import getList from "../api/api"
+import getList from "../api/api";
 import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
 import Loader from "./Loader";
 
 function App() {
-  const [data, setData] = useState<DataFromApi | null>()
+  const [data, setData] = useState<DataFromApi | null>();
+  const [page, setPage] = useState<number>(2);
+
+  function setPageFunction(pageMove: string) {
+    const maxPages = data?.info?.pages || 42;
+
+    if (pageMove === "back" && page > 1) {
+      setPage((prev) => prev - 1);
+    }
+
+    if (pageMove === "forward" && page < maxPages) {
+      setPage((prev) => prev + 1);
+    }
+  }
 
   useEffect(() => {
-    getList().then((result) => {
-      setData(result)
-    })
-  },[])
+    getList(page).then((result) => {
+      if (result) setData(result);
+    });
+  }, [page]);
 
   return (
     <div className="flex flex-col box-border">
@@ -30,14 +42,18 @@ function App() {
           <StatusFilter></StatusFilter>
         </div>
         <div>
-          {data ? <CharacterList fullData={data}></CharacterList> : <Loader></Loader>}
+          { data ? (
+            <CharacterList fullData={data}></CharacterList>
+          ) : (
+            <Loader></Loader>
+          )}
         </div>
         <div>
-          <Pagination></Pagination>
+          <Pagination setPageFunction={setPageFunction}></Pagination>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
