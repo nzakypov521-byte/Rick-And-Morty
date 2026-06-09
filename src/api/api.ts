@@ -4,6 +4,7 @@ import type { ActiveTabType } from "../types/types";
 export default async function getList(
   page: number,
   activeTab: ActiveTabType,
+  searchName: string,
   signal?: AbortSignal,
 ): Promise<DataFromApi | null> {
   try {
@@ -11,6 +12,10 @@ export default async function getList(
 
     if (activeTab !== "all") {
       url += `&status=${activeTab}`;
+    }
+
+    if (searchName) {
+      url += `&name=${searchName}`
     }
     const response = await fetch(url, { signal });
 
