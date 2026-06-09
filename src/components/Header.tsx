@@ -10,7 +10,6 @@ function Header() {
                     <div className="text-[#8F9996]">&</div>
                     <div className="text-[#FFFFFF]">MORTY</div>
                 </div>
-                <div className="text-[#8F9996]">Каталог</div>
             </div>
             <div className="flex flex-row items-center gap-3">
                 <NavLink to='/'>Каталог</NavLink>

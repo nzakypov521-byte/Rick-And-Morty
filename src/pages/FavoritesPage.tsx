@@ -1,6 +1,5 @@
 
 import Header from "../components/Header"
-// import CharacterList from "../components/CharacterList"
 
 function FavoritesPage() {
 

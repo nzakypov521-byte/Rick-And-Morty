@@ -1,4 +1,6 @@
-export default async function getList(page: number, signal?: AbortSignal) {
+import type { DataFromApi } from "../types/types";
+
+export default async function getList(page: number, signal?: AbortSignal): Promise<DataFromApi | null> {
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character?page=${page}`,
@@ -7,10 +9,9 @@ export default async function getList(page: number, signal?: AbortSignal) {
 
     const data = await response.json();
 
-    console.log(data);
     return data;
   } catch (e) {
-    if (e.name === "AbortError") {
+    if (e instanceof Error && e.name === "AbortError") {
       return null;
     }
 

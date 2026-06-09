@@ -54,7 +54,7 @@ function CatalogPage() {
       <Header></Header>
       <div className="flex flex-col bg-[#0E1311] h-full min-h-screen text-white px-43 pt-8 gap-4">
         <div>Каталог персонажей</div>
-        <div>826 персонажей · показаны 1–14</div>
+        <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
         <div className="flex flex-row justify-between">
           <SearchBar></SearchBar>
           <StatusFilter></StatusFilter>
