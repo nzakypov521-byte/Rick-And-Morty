@@ -1,10 +1,10 @@
-import type { DataFromApi } from "../types/types";
+import type { Character, DataFromApi } from "../types/types";
 import type { ActiveTabType } from "../types/types";
 
 export default async function getList(
   page: number,
   activeTab: ActiveTabType,
-  searchName: string,
+  searchName: string | null | undefined,
   signal?: AbortSignal,
 ): Promise<DataFromApi | null> {
   try {
@@ -29,5 +29,18 @@ export default async function getList(
 
     console.error(e);
     return null;
+  }
+}
+
+export async function getCharacter(id: number):Promise<Character | null> {
+  try {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`)
+    const data = await res.json();
+
+    return data
+    
+  } catch(e) {
+    console.error(e);
+    return null
   }
 }

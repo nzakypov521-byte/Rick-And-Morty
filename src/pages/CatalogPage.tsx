@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
 import type { ActiveTabType } from "../types/types";
 import Loader from "../components/Loader";
-import ErrorNoData from "../components/ErrorNoData";
+import ErrorNoData from "../components/NotFoundPage";
 import EmptyState from "../components/EmptyState";
 
 function CatalogPage() {
@@ -69,7 +69,7 @@ function CatalogPage() {
         <div>
           { !data ? (
             <ErrorNoData></ErrorNoData>
-          ) : ( data.error ? (<EmptyState setActiveTab={setActiveTab} searchName={searchName}></EmptyState>) : <CharacterList fullData={data}></CharacterList>
+          ) : ( data.error ? (<EmptyState setActiveTab={setActiveTab} searchName={searchName ?? ""}></EmptyState>) : <CharacterList fullData={data}></CharacterList>
           )}
         </div>
         <div>
