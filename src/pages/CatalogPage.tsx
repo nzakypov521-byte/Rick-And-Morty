@@ -23,7 +23,7 @@ function CatalogPage() {
       setPage((prev) => prev - 1);
     }
 
-    if (pageMove === "forward" && page < maxPages) {
+    if (pageMove === "forward" && page < maxPages!) {
       setIsLoading(true);
       setPage((prev) => prev + 1);
     }
