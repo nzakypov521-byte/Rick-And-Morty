@@ -7,11 +7,12 @@ import getList from "../api/api";
 import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
 import Loader from "../components/Loader";
+import ErrorNoData from "../components/ErrorNoData";
 
 function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   function setPageFunction(pageMove: string) {
     if (isLoading) return
@@ -52,6 +53,8 @@ function CatalogPage() {
   return (
     <div className="flex flex-col box-border overflow-y-auto [&::-webkit-scrollbar]:hidden">
       <Header></Header>
+      {
+        !data ? ((<ErrorNoData></ErrorNoData>)) : 
       <div className="flex flex-col bg-[#0E1311] h-full min-h-screen text-white px-43 pt-8 gap-4">
         <div>Каталог персонажей</div>
         <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
@@ -60,16 +63,16 @@ function CatalogPage() {
           <StatusFilter></StatusFilter>
         </div>
         <div>
-          { data ? (
-            <CharacterList fullData={data}></CharacterList>
-          ) : (
+          { isLoading ? (
             <Loader></Loader>
+          ) : ( <CharacterList fullData={data}></CharacterList>
           )}
         </div>
         <div>
           <Pagination setPageFunction={setPageFunction}></Pagination>
         </div>
       </div>
+       }
     </div>
   );
 }
