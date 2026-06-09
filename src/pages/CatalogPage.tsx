@@ -16,7 +16,7 @@ function CatalogPage() {
 
   function setPageFunction(pageMove: string) {
     if (isLoading) return
-    const maxPages = data?.info?.pages || 42;
+    const maxPages = data?.info?.pages
 
     if (pageMove === "back" && page > 1) {
       setIsLoading(true);
@@ -54,7 +54,7 @@ function CatalogPage() {
     <div className="flex flex-col box-border overflow-y-auto [&::-webkit-scrollbar]:hidden">
       <Header></Header>
       {
-        !data ? ((<ErrorNoData></ErrorNoData>)) : 
+        isLoading ? ((<Loader></Loader>)) : 
       <div className="flex flex-col bg-[#0E1311] h-full min-h-screen text-white px-43 pt-8 gap-4">
         <div>Каталог персонажей</div>
         <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
@@ -63,8 +63,8 @@ function CatalogPage() {
           <StatusFilter></StatusFilter>
         </div>
         <div>
-          { isLoading ? (
-            <Loader></Loader>
+          { !data ? (
+            <ErrorNoData></ErrorNoData>
           ) : ( <CharacterList fullData={data}></CharacterList>
           )}
         </div>

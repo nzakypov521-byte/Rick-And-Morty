@@ -1,5 +1,7 @@
 function Loader() {
   return (
+    <div className="flex flex-col gap-10 bg-[#0E1311] h-full min-h-screen text-white px-43 pt-15">
+    <div className="text-[#8F9996]">З А Г Р У З К А</div>
     <div className="flex flex-wrap gap-10">
       <div className="w-70 h-100 bg-[#19201E] rounded-2xl">
         <div className="w-70 h-60 bg-[#1E2623] rounded-t-2xl"></div>
@@ -121,6 +123,7 @@ function Loader() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
