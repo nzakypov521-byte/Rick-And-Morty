@@ -10,7 +10,7 @@ export type Character = {
     episode: string[]
 }
 
-export type ActiveTabType = 'all' | 'alive' | 'dead' | 'unknown'
+export type ActiveTabType = 'all' | 'Alive' | 'Dead' | 'unknown'
 
 export type DataFromApi = {
     info: {

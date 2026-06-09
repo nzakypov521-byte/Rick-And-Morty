@@ -6,6 +6,7 @@ import StatusFilter from "../components/StatusFilter";
 import getList from "../api/api";
 import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
+import type { ActiveTabType } from "../types/types";
 import Loader from "../components/Loader";
 import ErrorNoData from "../components/ErrorNoData";
 
@@ -13,6 +14,7 @@ function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [activeTab, setActiveTab] = useState<ActiveTabType>('all')
 
   function setPageFunction(pageMove: string) {
     if (isLoading) return
@@ -34,7 +36,7 @@ function CatalogPage() {
     const { signal } = controller
 
 
-    getList(page, signal).then((result) => {
+    getList(page, activeTab, signal).then((result) => {
       if (result) setData(result);
     }) .catch((err) => {
       if (err.name !== 'AbortError') {
@@ -48,7 +50,7 @@ function CatalogPage() {
       controller.abort();
     };
 
-  }, [page]);
+  }, [page, activeTab]);
 
   return (
     <div className="flex flex-col box-border overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -60,7 +62,7 @@ function CatalogPage() {
         <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
         <div className="flex flex-row justify-between">
           <SearchBar></SearchBar>
-          <StatusFilter></StatusFilter>
+          <StatusFilter activeTab={activeTab} setActiveTab={setActiveTab}></StatusFilter>
         </div>
         <div>
           { !data ? (

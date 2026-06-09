@@ -1,11 +1,18 @@
 import type { DataFromApi } from "../types/types";
+import type { ActiveTabType } from "../types/types";
 
-export default async function getList(page: number, signal?: AbortSignal): Promise<DataFromApi | null> {
+export default async function getList(
+  page: number,
+  activeTab: ActiveTabType,
+  signal?: AbortSignal,
+): Promise<DataFromApi | null> {
   try {
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}`,
-      { signal }
-    );
+    let url = `https://rickandmortyapi.com/api/character?page=${page}}`;
+
+    if (activeTab !== "all") {
+      url += `&status=${activeTab}`;
+    }
+    const response = await fetch(url, { signal });
 
     const data = await response.json();
 
