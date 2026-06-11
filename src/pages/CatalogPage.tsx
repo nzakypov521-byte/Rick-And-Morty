@@ -14,7 +14,7 @@ import EmptyState from "../components/EmptyState";
 function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<ActiveTabType>('all')
   const [searchName, setSearchName] = useState<string | null>()
 
@@ -23,12 +23,12 @@ function CatalogPage() {
     const maxPages = data?.info?.pages
 
     if (pageMove === "back" && page > 1) {
-      setIsLoading(true);
+      setIsLoading(true)
       setPage((prev) => prev - 1);
     }
 
     if (pageMove === "forward" && page < maxPages!) {
-      setIsLoading(true);
+      setIsLoading(true)
       setPage((prev) => prev + 1);
     }
   }
@@ -37,7 +37,6 @@ function CatalogPage() {
     const controller = new AbortController()
     const { signal } = controller
 
-
     getList(page, activeTab, searchName, signal).then((result) => {
       if (result) setData(result);
     }) .catch((err) => {
@@ -45,7 +44,11 @@ function CatalogPage() {
         console.error(err);
       }
     }).finally(() => {
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
+      setIsLoading(false)
+      
     })
 
     return () => {
@@ -63,8 +66,8 @@ function CatalogPage() {
         <div>Каталог персонажей</div>
         <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
         <div className="flex flex-row justify-between">
-          <SearchBar setSearchName={setSearchName}></SearchBar>
-          <StatusFilter activeTab={activeTab} setActiveTab={setActiveTab}></StatusFilter>
+          <SearchBar setPage={setPage} setSearchName={setSearchName}></SearchBar>
+          <StatusFilter setPage={setPage} activeTab={activeTab} setActiveTab={setActiveTab}></StatusFilter>
         </div>
         <div>
           { !data ? (

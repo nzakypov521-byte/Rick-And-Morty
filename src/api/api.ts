@@ -8,7 +8,7 @@ export default async function getList(
   signal?: AbortSignal,
 ): Promise<DataFromApi | null> {
   try {
-    let url = `https://rickandmortyapi.com/api/character?page=${page}}`;
+    let url = `https://rickandmortyapi.com/api/character?page=${page}`;
 
     if (activeTab !== "all") {
       url += `&status=${activeTab}`;
@@ -36,11 +36,14 @@ export async function getCharacter(id: number):Promise<Character | null> {
   try {
     const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`)
     const data = await res.json();
+    
+    if (data.error) return null
 
     return data
     
   } catch(e) {
     console.error(e);
+    
     return null
   }
 }
