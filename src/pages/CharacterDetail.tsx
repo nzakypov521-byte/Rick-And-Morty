@@ -18,10 +18,10 @@ function CharacterDetail() {
   }, [id]);
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen flex flex-col">
       <Header></Header>
       { isLoading ? (
-        <div className="w-full min-h-screen bg-[#0E1311] px-43 py-20 text-white flex flex-col gap-40 ">
+        <div className="w-full bg-[#0E1311] px-43 py-20 text-white flex flex-col gap-40 ">
         <NavLink to='/' className="text-[#8F9996]">К каталогу</NavLink>
           <div className="flex flex-row w-full items-center gap-19">
             <img className="w-110 h-110 rounded-3xl" src='' alt="" />
@@ -48,7 +48,7 @@ function CharacterDetail() {
                 </div>
                 <div className="w-full h-15 border-t border-b border-[#19201E] flex items-center">
                 <div className="w-50 text-[#8F9996]">Эпизоды</div>
-                <div className="flex-warp w-200"></div>        
+                <div className="flex-wrap w-200"></div>        
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@ function CharacterDetail() {
                 </div>
                 <div className="w-full h-15 border-t border-b border-[#19201E] flex items-center">
                 <div className="w-50 text-[#8F9996]">Эпизоды</div>
-                <div className="flex-warp w-200">{data.episode.map((item) => {
+                <div className="flex-wrap w-200">{data.episode.map((item) => {
                     const parts = item.split("/");
                     return `${parts.at(-1)} `;
                   })}</div>        

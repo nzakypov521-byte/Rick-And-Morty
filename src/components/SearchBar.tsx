@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDebouncedCallback  } from "use-debounce";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 
 function SearchBar({
   setSearchName,
@@ -8,19 +8,21 @@ function SearchBar({
   setSearchName: (name: string) => void;
   setPage: (page: number) => void
 }) {
+
   const [value, setValue] = useState('');
 
-  const debouncedSearchName = useDebouncedCallback((val: string) => {
-    if (val) {
-      setSearchName(val);
-      setPage(1)
-    }
-  }, 300);
+  const debouncedValue = useDebounce(value, 400)
+
+  useEffect(() => {
+    setSearchName(debouncedValue)
+
+    setPage(1)
+  },[debouncedValue, setSearchName, setPage])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const currentVal = e.target.value;
     setValue(currentVal)
-    debouncedSearchName(currentVal)
+
   }
 
   return (
@@ -40,6 +42,7 @@ function SearchBar({
           placeholder="Поиск по имени..."
           className="focus:outline-none w-full"
         />
+        <button onClick={() => { setValue('')}} className="w-5 h-5 flex items-center justify-center text-2xl text-white hover:cursor-pointer">×</button>
       </form>
     </div>
   );
