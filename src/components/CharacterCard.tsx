@@ -1,8 +1,9 @@
+import { NavLink } from "react-router-dom";
 
 
-function CharacterCard( {name, status, species, image}: {name:string, status: string, species: string, image: string} ) {
+function CharacterCard( {id, name, status, species, image}: {id:number, name:string, status: string, species: string, image: string} ) {
   return (
-    <div className="w-70 h-100 bg-[#19201E] rounded-2xl">
+    <NavLink to={`character/${id}`} className="w-70 h-100 bg-[#19201E] rounded-2xl hover:cursor-pointer">
       <img
         className="rounded-t-2xl"
         src={`${image}`}
@@ -21,7 +22,7 @@ function CharacterCard( {name, status, species, image}: {name:string, status: st
           <button></button>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }
 

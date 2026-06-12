@@ -6,25 +6,29 @@ import StatusFilter from "../components/StatusFilter";
 import getList from "../api/api";
 import { useEffect, useState } from "react";
 import type { DataFromApi } from "../types/types";
+import type { ActiveTabType } from "../types/types";
 import Loader from "../components/Loader";
-import ErrorNoData from "../components/ErrorNoData";
+import ErrorNoData from "../components/NotFoundPage";
+import EmptyState from "../components/EmptyState";
 
 function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [activeTab, setActiveTab] = useState<ActiveTabType>('all')
+  const [searchName, setSearchName] = useState<string | null>()
 
   function setPageFunction(pageMove: string) {
     if (isLoading) return
     const maxPages = data?.info?.pages
 
     if (pageMove === "back" && page > 1) {
-      setIsLoading(true);
+      setIsLoading(true)
       setPage((prev) => prev - 1);
     }
 
     if (pageMove === "forward" && page < maxPages!) {
-      setIsLoading(true);
+      setIsLoading(true)
       setPage((prev) => prev + 1);
     }
   }
@@ -33,22 +37,25 @@ function CatalogPage() {
     const controller = new AbortController()
     const { signal } = controller
 
-
-    getList(page, signal).then((result) => {
+    getList(page, activeTab, searchName, signal).then((result) => {
       if (result) setData(result);
     }) .catch((err) => {
       if (err.name !== 'AbortError') {
         console.error(err);
       }
     }).finally(() => {
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
+      setIsLoading(false)
+      
     })
 
     return () => {
       controller.abort();
     };
 
-  }, [page]);
+  }, [page, activeTab, searchName]);
 
   return (
     <div className="flex flex-col box-border overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -59,13 +66,13 @@ function CatalogPage() {
         <div>Каталог персонажей</div>
         <div>{data?.info?.count} персонажей · показаны {(page - 1) * 20 + 1}–{Math.min(page * 20, data?.info?.count ?? 0)}</div>
         <div className="flex flex-row justify-between">
-          <SearchBar></SearchBar>
-          <StatusFilter></StatusFilter>
+          <SearchBar setPage={setPage} setSearchName={setSearchName}></SearchBar>
+          <StatusFilter setPage={setPage} activeTab={activeTab} setActiveTab={setActiveTab}></StatusFilter>
         </div>
         <div>
           { !data ? (
             <ErrorNoData></ErrorNoData>
-          ) : ( <CharacterList fullData={data}></CharacterList>
+          ) : ( data.error ? (<EmptyState setActiveTab={setActiveTab} searchName={searchName ?? ""}></EmptyState>) : <CharacterList fullData={data}></CharacterList>
           )}
         </div>
         <div>

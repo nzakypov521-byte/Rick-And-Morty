@@ -10,14 +10,15 @@ export type Character = {
     episode: string[]
 }
 
-export type ActiveTabType = 'all' | 'alive' | 'dead' | 'unknown'
+export type ActiveTabType = 'all' | 'Alive' | 'Dead' | 'unknown'
 
 export type DataFromApi = {
-    info: {
+    info?: {
         count: number,
         pages: number,
         next: string | null,
         prev: string | null,
     },
-    results: Character[]
+    results?: Character[],
+    error?: string;   
 }
