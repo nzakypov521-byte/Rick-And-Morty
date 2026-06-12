@@ -55,7 +55,7 @@ function CharacterDetail() {
           </div>
       </div>
       ) : ( data ? (
-        <div className="w-full min-h-screen bg-[#0E1311] px-43 py-20 text-white flex flex-col gap-40 ">
+        <div className="w-full flex-1 bg-[#0E1311] px-43 py-20 text-white flex flex-col gap-40 ">
         <NavLink to='/' className="text-[#8F9996]">К каталогу</NavLink>
           <div className="flex flex-row w-full items-center gap-19">
             <img className="w-110 h-110 rounded-3xl" src={data.image} alt="" />
