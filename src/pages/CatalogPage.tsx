@@ -10,6 +10,7 @@ import type { ActiveTabType } from "../types/types";
 import Loader from "../components/Loader";
 import ErrorNoData from "../components/NotFoundPage";
 import EmptyState from "../components/EmptyState";
+import useFavChars from "../hooks/useLocalStorage";
 
 function CatalogPage() {
   const [data, setData] = useState<DataFromApi | null>();
@@ -17,6 +18,7 @@ function CatalogPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<ActiveTabType>('all')
   const [searchName, setSearchName] = useState<string | null>()
+  const { favs, toggleFav } = useFavChars()
 
   function setPageFunction(pageMove: string) {
     if (isLoading) return
@@ -72,7 +74,7 @@ function CatalogPage() {
         <div>
           { !data ? (
             <ErrorNoData></ErrorNoData>
-          ) : ( data.error ? (<EmptyState setActiveTab={setActiveTab} searchName={searchName ?? ""}></EmptyState>) : <CharacterList fullData={data}></CharacterList>
+          ) : ( data.error ? (<EmptyState setActiveTab={setActiveTab} searchName={searchName ?? ""}></EmptyState>) : <CharacterList toggleFav={toggleFav} favs={favs} fullData={data}></CharacterList>
           )}
         </div>
         <div>
