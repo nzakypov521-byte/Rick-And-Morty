@@ -4,11 +4,14 @@ import { getCharacter } from "../api/api";
 import { useEffect, useState } from "react";
 import type { Character } from "../types/types";
 import NotFoundPage from "../components/NotFoundPage";
+import FavoriteButton from "../components/FavoriteButton";
+import useFavChars from "../hooks/useLocalStorage";
 
 function CharacterDetail() {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<Character | null>();
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const { favs, toggleFav } = useFavChars()
 
   useEffect(() => {
     getCharacter(Number(id)).then((res) => {
@@ -102,6 +105,10 @@ function CharacterDetail() {
                     return `${parts.at(-1)} `;
                   })}</div>        
                 </div>
+              </div>
+              <div className="flex flex-row gap-5 items-center">
+              {favs.includes(Number(id)) ? (<div className="text-[#11B743]">В избранном</div>) : <div className="text-[#8F9996]">Добавить в избранное</div>}
+              <FavoriteButton key={id} id={Number(id)} favs={favs} toggleFav={toggleFav}></FavoriteButton>
               </div>
             </div>
           </div>
