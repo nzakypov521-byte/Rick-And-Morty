@@ -1,6 +1,10 @@
 import { NavLink } from "react-router"
+import useFavChars from "../hooks/useLocalStorage"
 
 function Header() {
+    const {favs} = useFavChars()
+
+
     return (
         <div className="w-flex h-15 bg-[#0E1311] flex flex-row justify-between text-[#FFFFFF] border-b-[#242D2A] border-b px-43">
             <div className="flex flex-row gap-4 items-center">
@@ -15,7 +19,7 @@ function Header() {
                 <NavLink to='/'>Каталог</NavLink>
                 <NavLink to='/favorites' className="flex flex-row items-center gap-2">
                     Избранное
-                     <div>0</div>
+                     <div>{favs.length}</div>
                 </NavLink>
             </div>
         </div>

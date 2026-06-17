@@ -30,9 +30,9 @@ function FavoritesPage() {
   };
 
   return (
-    <div className="h-screen overflow-y-hidden">
+    <div className="h-screen">
       <Header></Header>
-      <div className="bg-[#0E1311] w-full h-full px-43 flex flex-col gap-5 py-20">
+      <div className="bg-[#0E1311] w-full flex-1 px-43 flex flex-col gap-5 py-20">
         <div className="text-[#FFFFFF] text-4xl">Избранное</div>
         <div className="text-[#8F9996] text-xl">{favs.length} персонажа</div>
         <CharacterList
