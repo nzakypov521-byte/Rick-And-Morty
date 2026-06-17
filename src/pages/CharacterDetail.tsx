@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import type { Character } from "../types/types";
 import NotFoundPage from "../components/NotFoundPage";
 import FavoriteButton from "../components/FavoriteButton";
-import useFavChars from "../hooks/useLocalStorage";
+import { useFavs } from "../hooks/favContext";
 
 function CharacterDetail() {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<Character | null>();
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { favs, toggleFav } = useFavChars()
+  const { favs, toggleFav } = useFavs()
 
   useEffect(() => {
     getCharacter(Number(id)).then((res) => {

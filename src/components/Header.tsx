@@ -1,8 +1,8 @@
 import { NavLink } from "react-router"
-import useFavChars from "../hooks/useLocalStorage"
+import { useFavs } from "../hooks/favContext"
 
 function Header() {
-    const {favs} = useFavChars()
+    const {favs} = useFavs()
 
 
     return (

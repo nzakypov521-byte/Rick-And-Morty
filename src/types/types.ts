@@ -22,3 +22,8 @@ export type DataFromApi = {
     results?: Character[],
     error?: string;   
 }
+
+export type FavContextType = {
+    favs: number[];
+    toggleFav: (id: number) => void;
+}

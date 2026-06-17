@@ -1,12 +1,12 @@
 import Header from "../components/Header";
-import useFavChars from "../hooks/useLocalStorage";
+import { useFavs } from "../hooks/favContext";
 import { useEffect, useState } from "react";
 import type { Character, DataFromApi } from "../types/types";
 import { getCharacter } from "../api/api";
 import CharacterList from "./../components/CharacterList";
 
 function FavoritesPage() {
-  const { favs, toggleFav } = useFavChars();
+  const { favs, toggleFav } = useFavs();
   const [data, setData] = useState<Character[]>([]);
 
   useEffect(() => {
