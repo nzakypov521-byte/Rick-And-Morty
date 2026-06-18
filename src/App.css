@@ -1,1 +1,10 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: #0E1311;
+}
