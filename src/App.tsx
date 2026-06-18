@@ -11,11 +11,11 @@ function App() {
   return (
     <FavProvider>
       <Routes>
-        <Route path="/Rick-And-Morty/" element={<CatalogPage />} />
-        <Route path="/Rick-And-Morty/character/:id" element={<CharacterDetail />} />
-        <Route path="/Rick-And-Morty/favorites/character/:id" element={<CharacterDetail />} />
-        <Route path="/Rick-And-Morty/favorites" element={<FavoritesPage />} />
-        <Route path="/Rick-And-Morty/*" element={<NotFoundPage />} />
+        <Route path="/" element={<CatalogPage />} />
+        <Route path="/character/:id" element={<CharacterDetail />} />
+        <Route path="/favorites/character/:id" element={<CharacterDetail />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </FavProvider>
   );
