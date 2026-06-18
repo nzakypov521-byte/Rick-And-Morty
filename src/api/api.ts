@@ -32,9 +32,9 @@ export default async function getList(
   }
 }
 
-export async function getCharacter(id: number):Promise<Character | null> {
+export async function getCharacter(id: number | number[]):Promise<Character | null> {
   try {
-    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`)
+    const res = await fetch(`https://rickandmortyapi.com/api/character/${typeof id === 'number' ? id : id.join(',')}`)
     const data = await res.json();
     
     if (data.error) return null
